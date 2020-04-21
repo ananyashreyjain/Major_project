@@ -11,9 +11,9 @@ import gym
 import matplotlib.pyplot as plt
 tf.compat.v1.disable_eager_execution()
 
-MODEL_SCORE = input("Score of the input model ")
+MODEL_SCORE = 500.0
 
-TASK = 2
+TASK = input("Enter the task number ")
 RENDER_AFTER_EPISODES = 25
 PLAY_EPISODES = 100
 SHOW = False  # For rendering
@@ -50,7 +50,7 @@ def plot(scores=[]):
             avg_of_last = sum(scores[-1*AVG_OF_LAST:])/AVG_OF_LAST
             y_val = [avg_of_last, avg_of_last]
             plt.plot(x_val, y_val, 'k-', label=f'average scores of last {AVG_OF_LAST}')
-        plt.xlabel('Epochs--->')
+        plt.xlabel('Episodes--->')
         plt.ylabel('Score--->')
         plt.legend()
         plt.pause(0.01)
@@ -76,4 +76,4 @@ for _ in tqdm(range(PLAY_EPISODES)):
     if PLOT:
         plot(scores)
 plt.pause(5)
-print(sum(scores)/PLAY_EPISODES)
+print(f"Average Score = {sum(scores)/PLAY_EPISODES}")
