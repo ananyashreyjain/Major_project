@@ -11,8 +11,6 @@ import gym
 import matplotlib.pyplot as plt
 tf.compat.v1.disable_eager_execution()
 
-MODEL_SCORE = 500.0
-
 TASK = input("Enter the task number ")
 RENDER_AFTER_EPISODES = 25
 PLAY_EPISODES = 100
@@ -20,14 +18,24 @@ SHOW = False  # For rendering
 PLOT = True  # For plotting
 AVG_OF_LAST = 100
 
-#User Settings
+
+string = """
+Default model set as Deep Q Learning
+Press enter to continue
+Enter DL for Deep Learning model
+"""
+if input(string) == "DL":
+    APPROACH = "DL"
+else:
+    APPROACH = "DQL"
+
+#User Settings    
 #ENV_PATH is to be replaced by MODIFIED_ENV_PATH
-APPROACH = "DQL"  # The approach used to train this model
 MODIFIED_ENV_PATH = f"./task{TASK}.py"
 ENV_PATH = gym.__file__ + "envs/classic_control/cartpole.py"
 ENV_PATH = ENV_PATH.replace("__init__.py", "")
 print(ENV_PATH)
-MODEL_PATH = f"./Models/{APPROACH}_model_task-{TASK}-{MODEL_SCORE}.h5"
+MODEL_PATH = f"./Models/{APPROACH}_model_task-{TASK}.h5"
 PATH1 = MODIFIED_ENV_PATH
 PATH2 = ENV_PATH
 os.system('cp '+ PATH1 + ' ' + PATH2)
@@ -43,6 +51,7 @@ def plot(scores=[]):
         avg_score = sum(scores)/len(scores)
         x_val = [0,len(scores)-1]
         y_val = [avg_score, avg_score]
+        plt.title(f'{APPROACH} model, Task {TASK}')
         plt.plot(scores,'g-o', label='current score')
         plt.plot(x_val, y_val,'r-', label='average score')
         plt.plot(avg_scores,'b-', label='average scores')

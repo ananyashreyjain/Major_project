@@ -43,7 +43,7 @@ PLAY_EPISODES = 100
 SHOW = False
 PLOT = True
 TRAIN = True
-SAVE_AT_AVG = 400
+SAVE_AT_AVG = 500
 
 
 # Paths
@@ -51,7 +51,7 @@ SAVE_AT_AVG = 400
 MODIFIED_ENV_PATH = f"./task{TASK}.py"
 ENV_PATH = gym.__file__ + "envs/classic_control/cartpole.py"
 ENV_PATH = ENV_PATH.replace('__init__.py', '')
-MODEL_SAVE_PATH = "./models"
+MODEL_SAVE_PATH = "./Models"
 PATH1 = MODIFIED_ENV_PATH  # Path to the env for specific task
 PATH2 = ENV_PATH  # Path to the original env in the system
 SAVE = MODEL_SAVE_PATH  # This is where the model will be saved
@@ -207,13 +207,16 @@ if TRAIN:
             stop = agent.next_action()
             if stop:
                 if max_score <= agent.all_scores[-1]:
-                    os.system('rm '+ f"{SAVE}/peak_model-{TASK}-{max_score}.h5")
+                    try:
+                        os.system('rm '+ f"{SAVE}/DQL_model-{TASK}-.h5")
+                    except:
+                        print("No model to remove")
                     try:
                         max_score = agent.all_scores[-1]
-                        agent.present_q_model.save(f"{SAVE}/DQL_peak_model-{TASK}-{max_score}.h5")
+                        agent.present_q_model.save(f"{SAVE}/DQL_model-{TASK}-.h5")
                     except KeyboardInterrupt:
                         max_score = agent.all_scores[-1]
-                        agent.present_q_model.save(f"{SAVE}/DQL_peak_model-{TASK}-{max_score}.h5")
+                        agent.present_q_model.save(f"{SAVE}/DQL_model-{TASK}-.h5")
                         raise KeyboardInterrupt
                 if episode >= AVG_OF_LAST:
                     max_avg = max(sum(agent.all_scores[-1*AVG_OF_LAST:])/AVG_OF_LAST, max_avg)
