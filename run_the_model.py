@@ -15,9 +15,9 @@ import gym
 import matplotlib.pyplot as plt
 tf.compat.v1.disable_eager_execution()
 
-MODEL_SCORE = input("Score of the input model")
+MODEL_SCORE = input("Score of the input model ")
 
-TASK = 3
+TASK = 1
 RENDER_AFTER_EPISODES = 25
 PLAY_EPISODES = 100
 SHOW = False  # For rendering
@@ -26,12 +26,12 @@ AVG_OF_LAST = 100
 
 #User Settings
 #ENV_PATH is to be replaced by MODIFIED_ENV_PATH
-APPROACH = "DL"  # The approach used to train this model
+APPROACH = "DQL"  # The approach used to train this model
 MODIFIED_ENV_PATH = f"./task{TASK}.py"
 ENV_PATH = gym.__file__ + "envs/classic_control/cartpole.py"
 ENV_PATH = ENV_PATH.replace("__init__.py", "")
 print(ENV_PATH)
-MODEL_PATH = f"./models/{APPROACH}_model_task-{TASK}-{MODEL_SCORE}.h5"
+MODEL_PATH = f"./Models/{APPROACH}_model_task-{TASK}-{MODEL_SCORE}.h5"
 PATH1 = MODIFIED_ENV_PATH
 PATH2 = ENV_PATH
 os.system('cp '+ PATH1 + ' ' + PATH2)
