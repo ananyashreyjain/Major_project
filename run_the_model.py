@@ -1,10 +1,6 @@
 #!/usr/bin/env python3
 
 import tensorflow as tf
-from tensorflow.keras import Sequential
-from tensorflow.keras.layers import Dense, Flatten, LSTM, Dropout
-from tensorflow.keras.optimizers import Adam, RMSprop
-from tensorflow.keras.callbacks import Callback
 from tensorflow.keras.models import load_model
 from collections import deque
 import numpy as np
@@ -17,7 +13,7 @@ tf.compat.v1.disable_eager_execution()
 
 MODEL_SCORE = input("Score of the input model ")
 
-TASK = 1
+TASK = 2
 RENDER_AFTER_EPISODES = 25
 PLAY_EPISODES = 100
 SHOW = False  # For rendering
@@ -47,7 +43,7 @@ def plot(scores=[]):
         avg_score = sum(scores)/len(scores)
         x_val = [0,len(scores)-1]
         y_val = [avg_score, avg_score]
-        plt.plot(scores,'g-', label='current score')
+        plt.plot(scores,'g-o', label='current score')
         plt.plot(x_val, y_val,'r-', label='average score')
         plt.plot(avg_scores,'b-', label='average scores')
         if len(scores) >= AVG_OF_LAST:
